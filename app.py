@@ -15,13 +15,13 @@ import plotly.express as px
 from model import prediction
 
 
-app = dash.Dash(__name__)
+app = dash.Dash(__name__,title="Stocks Dash")
 server = app.server
-app.title="Stocks Dash"
 
 #two divisions
 app.layout = html.Div([
-    html.Div(
+     
+        html.Div(
         [   html.Img(src="https://www.teahub.io/photos/full/298-2987846_stock-market-wall.jpg", className='Image'),
             html.P("Welcome to the Stock Dash App!", className="start"),
 
@@ -53,7 +53,7 @@ app.layout = html.Div([
                 html.Button('Forecast', id='Forecast',className='button')
             ])
             
-        ],className="nav"), 
+        ],className="nav"),
 
     html.Div(
         [
@@ -72,6 +72,7 @@ app.layout = html.Div([
             # Forecast plot
             html.Div([], id="forecast-content")
         ],className="content")
+
 
 ],className="container")
 
