@@ -10,5 +10,5 @@ pandas,
 plotly, 
 yfinance, 
 sklearn <br/>
-##### Run this on terminal: 
+#### Run this on terminal: 
 pip install dash dash_core_components dash_html_components pandas plotly yfinance sklearn 
