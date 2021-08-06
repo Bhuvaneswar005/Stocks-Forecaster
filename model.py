@@ -23,6 +23,7 @@ def prediction(stock, no_of_days):
 
     x_train, x_test, y_train, y_test = train_test_split(X,Y,test_size=0.1,shuffle=False)
 
+    # to determine the optimal values for the model. automates it
     gsc = GridSearchCV(
         estimator=SVR(kernel='rbf'),
         param_grid={
@@ -33,22 +34,17 @@ def prediction(stock, no_of_days):
             ],
             'gamma': [0.0001, 0.001, 0.005, 0.1, 1, 3, 5, 8, 40, 100, 1000]
         },
-        cv=5,
-        scoring='neg_mean_absolute_error',
-        verbose=0,
-        n_jobs=-1)
+        cv=5, scoring='neg_mean_absolute_error', verbose=0, n_jobs=-1)
 
     y_train = y_train.values.ravel()
     y_train
+    
+    # fitting the model for grid search and finding best parameters
     grid_result = gsc.fit(x_train, y_train)
     best_params = grid_result.best_params_
+    print("Best Parameters: ",best_params)
+
     rbf_svr = SVR(kernel='rbf',C=best_params["C"],epsilon=best_params["epsilon"],gamma=best_params["gamma"],max_iter=-1)
-
-    # Support Vector Regression Models
-
-    # RBF model
-    #rbf_svr = SVR(kernel='rbf', C=1000.0, gamma=4.0)
-
     rbf_svr.fit(x_train, y_train)
 
     predicted_prices = list()
